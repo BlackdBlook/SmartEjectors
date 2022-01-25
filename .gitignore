@@ -1,0 +1,9 @@
+# OS files
+.DS_Store
+
+# VS Code files
+.vscode/
+
+# Build files
+bin/
+obj/
