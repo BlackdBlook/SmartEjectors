@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using HarmonyLib;
 
 namespace SmartEjectors
 {
@@ -8,9 +9,29 @@ namespace SmartEjectors
         private const string GUID = "com.daniel-egg.smartejectors";
         private const string NAME = "Smart Ejectors";
         private const string VERSION = "1.0.0";
+
         private void Awake()
         {
+            Harmony.CreateAndPatchAll(typeof(Patch));
+        }
 
+        static class Patch
+        {
+            [HarmonyPrefix, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
+            private static void LockEjector(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
+            {
+                DysonSphere sphere = swarm.dysonSphere;
+
+                // Check for filled sphere
+                if (sphere.totalConstructedCellPoint + sphere.swarm.sailCount >= sphere.totalCellPoint)
+                {
+                    // Disable firing
+                    __instance.time = 0;
+
+                    // Disable animations
+                    animPool[__instance.entityId].time = 0f;
+                }
+            }
         }
     }
 }
