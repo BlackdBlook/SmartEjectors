@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using System.IO;
 
 namespace SmartEjectors
 {
@@ -8,14 +9,16 @@ namespace SmartEjectors
     public class Plugin : BaseUnityPlugin
     {
         private const string GUID = "com.daniel-egg.smartejectors";
-        private const string NAME = "Smart Ejectors";
+        private const string NAME = "SmartEjectors";
         private const string VERSION = "1.0.0";
 
+        private static ConfigFile configFile;
         private static ConfigEntry<bool> enableLockEjector;
 
         private void Awake()
         {
-            enableLockEjector = Config.Bind("General", "enableLockEjector", true, "When set to true, EM Rail Ejectors automatically stop firing when the local Dyson Sphere has no available cell points.");
+            configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, NAME + ".cfg"), true);
+            enableLockEjector = configFile.Bind("General", "enableLockEjector", true, "When set to true, EM Rail Ejectors automatically stop firing when the local Dyson Sphere has no available cell points.");
             
             Harmony.CreateAndPatchAll(typeof(Patch));
         }
