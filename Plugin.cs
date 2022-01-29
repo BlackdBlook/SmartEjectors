@@ -6,6 +6,7 @@ using System.IO;
 namespace SmartEjectors
 {
     [BepInPlugin(GUID, NAME, VERSION)]
+    [BepInProcess("DSPGAME.exe")]
     public class Plugin : BaseUnityPlugin
     {
         private const string GUID = "com.daniel-egg.smartejectors";
