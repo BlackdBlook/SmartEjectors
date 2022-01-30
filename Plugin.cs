@@ -18,7 +18,7 @@ namespace SmartEjectors
         {
             configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME + ".cfg"), true);
             enableLockEjector = configFile.Bind("General", "enableLockEjector", true, "When set to true, EM Rail Ejectors automatically stop firing when the local Dyson Sphere has no available cell points.");
-            
+
             Harmony.CreateAndPatchAll(typeof(Patch));
         }
 
@@ -28,7 +28,7 @@ namespace SmartEjectors
             private static void LockEjector(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
             {
                 if (!enableLockEjector.Value) return;
-                
+
                 DysonSphere sphere = swarm.dysonSphere;
 
                 // Check for filled sphere

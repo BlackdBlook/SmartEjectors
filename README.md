@@ -7,7 +7,7 @@ This mod stops EM Rail Ejectors from firing when the local Dyson Sphere has no a
 
 ## Changelog
 
-### v1.0.2 - v1.0.3
+### v1.0.2 - v1.0.4
 - Code formatting, no functional change
 ### v1.0.1
 - Added process filter for game excecutable
