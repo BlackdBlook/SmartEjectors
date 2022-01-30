@@ -15,7 +15,7 @@ outdir = "./build"
 
 [[build.copy]]
 source = "./bin/Release/netstandard2.0/SmartEjectors.dll"
-target = ""
+target = "./SmartEjectors.dll"
 
 [publish]
 repository = "https://thunderstore.io"
