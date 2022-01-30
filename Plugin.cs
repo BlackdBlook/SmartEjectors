@@ -11,7 +11,7 @@ namespace SmartEjectors
     {
         private const string GUID = "com.daniel-egg.smartejectors";
         private const string NAME = "SmartEjectors";
-        private const string VERSION = "1.0.0";
+        private const string VERSION = "1.0.1";
 
         private static ConfigFile configFile;
         private static ConfigEntry<bool> enableLockEjector;
@@ -26,7 +26,7 @@ namespace SmartEjectors
 
         static class Patch
         {
-            [HarmonyPrefix, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
+            [HarmonyPostfix, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
             private static void LockEjector(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
             {
                 if (enableLockEjector.Value)
@@ -41,6 +41,9 @@ namespace SmartEjectors
 
                         // Disable animations
                         animPool[__instance.entityId].time = 0f;
+
+                        // Reduce power consumption to idle state
+                        __instance.direction = 0;
                     }
                 }
             }
