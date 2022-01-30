@@ -1,0 +1,23 @@
+[package]
+namespace = "DanielHeEGG"
+name = "SmartEjectors"
+websiteUrl = "https://github.com/DanielHeEGG/SmartEjectors"
+description = "A Dyson Sphere Program mod that makes EM Rail Ejectors smarter"
+containsNsfwContent = false
+
+[package.dependencies]
+xiaoye97-BepInEx = "5.4.17"
+
+[build]
+icon = "./icon.png"
+readme = "./README.md"
+outdir = "./build"
+
+[[build.copy]]
+source = "./bin/Release/netstandard2.0/SmartEjectors.dll"
+target = ""
+
+[publish]
+repository = "https://thunderstore.io"
+communities = ["dyson-sphere-program"]
+categories = []

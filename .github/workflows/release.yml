@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+      - run: dotnet build --configuration Release
+      - name: Get Version
+        id: version
+        uses: jungwinter/split@v2
+        with:
+          msg: ${{ github.ref }}
+          separator: v
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: bin/Release/netstandard2.0/SmartEjectors.dll
+      - name: Publish
+        env:
+          TCLI_AUTH_TOKEN: ${{ secrets.TCLI_AUTH_TOKEN }}
+        run: ./tcli publish --package-version "${{ steps.version.outputs._1 }}"
