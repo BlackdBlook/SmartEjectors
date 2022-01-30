@@ -9,3 +9,6 @@ This mod stops EM Rail Ejectors from firing when the local Dyson Sphere has no a
 ### v1.0.1
 - Added process filter for game excecutable
 - Fixed bug where disabled ejectors draw full charging power
+
+### v1.0.2
+- Code formatting, no functional change
