@@ -27,22 +27,21 @@ namespace SmartEjectors
             [HarmonyPostfix, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
             private static void LockEjector(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
             {
-                if (enableLockEjector.Value)
+                if (!enableLockEjector.Value) return;
+                
+                DysonSphere sphere = swarm.dysonSphere;
+
+                // Check for filled sphere
+                if (sphere.totalConstructedCellPoint + sphere.swarm.sailCount >= sphere.totalCellPoint)
                 {
-                    DysonSphere sphere = swarm.dysonSphere;
+                    // Disable firing
+                    __instance.time = 0;
 
-                    // Check for filled sphere
-                    if (sphere.totalConstructedCellPoint + sphere.swarm.sailCount >= sphere.totalCellPoint)
-                    {
-                        // Disable firing
-                        __instance.time = 0;
+                    // Disable animations
+                    animPool[__instance.entityId].time = 0f;
 
-                        // Disable animations
-                        animPool[__instance.entityId].time = 0f;
-
-                        // Reduce power consumption to idle state
-                        __instance.direction = 0;
-                    }
+                    // Reduce power consumption to idle state
+                    __instance.direction = 0;
                 }
             }
         }
