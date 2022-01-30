@@ -5,20 +5,18 @@ using System.IO;
 
 namespace SmartEjectors
 {
-    [BepInPlugin(GUID, NAME, VERSION)]
+    [BepInPlugin(GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     [BepInProcess("DSPGAME.exe")]
     public class Plugin : BaseUnityPlugin
     {
-        private const string GUID = "com.daniel-egg.smartejectors";
-        private const string NAME = "SmartEjectors";
-        private const string VERSION = "1.0.1";
+        private const string GUID = "com.daniel-egg." + PluginInfo.PLUGIN_NAME;
 
         private static ConfigFile configFile;
         private static ConfigEntry<bool> enableLockEjector;
 
         private void Awake()
         {
-            configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, NAME + ".cfg"), true);
+            configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME + ".cfg"), true);
             enableLockEjector = configFile.Bind("General", "enableLockEjector", true, "When set to true, EM Rail Ejectors automatically stop firing when the local Dyson Sphere has no available cell points.");
             
             Harmony.CreateAndPatchAll(typeof(Patch));
