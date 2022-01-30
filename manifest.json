@@ -1,9 +1,0 @@
-{
-    "name": "SmartEjectors",
-    "version_number": "1.0.1",
-    "website_url": "https://github.com/DanielHeEGG/SmartEjectors",
-    "description": "A Dyson Sphere Program mod that makes EM Rail Ejectors smarter",
-    "dependencies": [
-        "xiaoye97-BepInEx-5.4.17"
-    ]
-}
