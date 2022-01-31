@@ -6,6 +6,8 @@ In the current state, Dyson Swarms are terribly inefficient. There is no in-game
 This mod stops EM Rail Ejectors from firing when the local Dyson Sphere has no available cell points.
 
 ## Changelog
+### v1.1.1
+- Fixed missing required dependency in thunderstore
 ### v1.1.0
 - Added support for Nebula Multiplayer (new dependency: [NebulaMultiplayerModAPI](https://dsp.thunderstore.io/package/nebula/NebulaMultiplayerModApi/))
 ### v1.0.2 - v1.0.4
