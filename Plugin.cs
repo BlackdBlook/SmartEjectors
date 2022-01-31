@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
 using HarmonyLib;
 using System.IO;
 
@@ -11,13 +10,9 @@ namespace SmartEjectors
     {
         private const string GUID = "com.daniel-egg." + PluginInfo.PLUGIN_NAME;
 
-        private static ConfigFile configFile;
-        private static ConfigEntry<bool> enableLockEjector;
-
         private void Awake()
         {
-            configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME + ".cfg"), true);
-            enableLockEjector = configFile.Bind("General", "enableLockEjector", true, "When set to true, EM Rail Ejectors automatically stop firing when the local Dyson Sphere has no available cell points.");
+            SmartEjectors.Config.Init(Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME + ".cfg"));
 
             Harmony.CreateAndPatchAll(typeof(Patch));
         }
@@ -27,7 +22,7 @@ namespace SmartEjectors
             [HarmonyPostfix, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
             private static void LockEjector(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
             {
-                if (!enableLockEjector.Value) return;
+                if (!SmartEjectors.Config.enableLockEjector.Value) return;
 
                 DysonSphere sphere = swarm.dysonSphere;
 
