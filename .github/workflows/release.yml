@@ -29,4 +29,4 @@ jobs:
       - name: Publish
         env:
           TCLI_AUTH_TOKEN: ${{ secrets.TCLI_AUTH_TOKEN }}
-        run: dotnet tcli publish --package-version "${{ steps.version.outputs._1 }}"
+        run: dotnet tcli publish --package-version "${{ steps.version.outputs.info }}"
