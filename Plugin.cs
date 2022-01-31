@@ -39,7 +39,7 @@ namespace SmartEjectors
         static class Patch
         {
             [HarmonyPostfix, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
-            private static void LockEjector(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
+            private static void EjectorComponent_InternalUpdate_Postfix(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
             {
                 if (!SmartEjectors.Config.enableLockEjector.inUse) return;
 
