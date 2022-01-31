@@ -14,12 +14,12 @@ jobs:
         with:
           dotnet-version: "6.0.x"
       - run: dotnet build --configuration Release
-      - name: Get Version
+      - name: Get version
         id: version
-        uses: jungwinter/split@v2
+        uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          msg: ${{ github.ref }}
-          separator: v
+          xml-file: 'SmartEjectors.csproj'
+          xpath: '//Version'
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
