@@ -30,9 +30,9 @@ namespace SmartEjectors.Patch
             if (Util.isSphereFilled(__instance.factory.dysonSphere))
             {
                 // Show text for disabled status
-                __instance.stateText.text = "Disabled - Filled Sphere";
+                __instance.stateText.text = Locale.disabledEjector1[Localization.language];
                 __instance.stateText.color = __instance.idleColor;
-                __instance.valueText2.text = "Disabled";
+                __instance.valueText2.text = Locale.disabledejector2[Localization.language];
                 __instance.valueText2.color = __instance.idleColor;
                 __instance.valueText3.color = __instance.factorySystem.ejectorPool[__instance.ejectorId].targetState == EjectorComponent.ETargetState.AngleLimit ? __instance.workStoppedColor : __instance.idleColor;
             }
