@@ -7,19 +7,19 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "6.0.x"
       - run: dotnet build --configuration Release
-      - name: Get version
+      - name: Get Version
         id: version
-        uses: mavrosxristoforos/get-xml-info@1.0
+        uses: jungwinter/split@v2
         with:
-          xml-file: 'SmartEjectors.csproj'
-          xpath: '//Version'
+          msg: ${{ github.ref }}
+          separator: v
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -29,4 +29,4 @@ jobs:
       - name: Publish
         env:
           TCLI_AUTH_TOKEN: ${{ secrets.TCLI_AUTH_TOKEN }}
-        run: dotnet tcli publish --package-version "${{ steps.version.outputs.info }}"
+        run: dotnet tcli publish --package-version "${{ steps.version.outputs._1 }}"
