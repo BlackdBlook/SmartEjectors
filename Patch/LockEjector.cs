@@ -9,10 +9,7 @@ namespace SmartEjectors.Patch
         {
             if (!SmartEjectors.Config.enableLockEjector.inUse) return;
 
-            DysonSphere sphere = swarm.dysonSphere;
-
-            // Check for filled sphere
-            if (sphere.totalConstructedCellPoint + sphere.swarm.sailCount >= sphere.totalCellPoint)
+            if (Util.isSphereFilled(swarm.dysonSphere))
             {
                 // Disable firing
                 __instance.time = 0;
@@ -30,10 +27,7 @@ namespace SmartEjectors.Patch
         {
             if (!SmartEjectors.Config.enableLockEjector.inUse) return;
 
-            DysonSphere sphere = __instance.factory.dysonSphere;
-
-            // Check for filled sphere
-            if (sphere.totalConstructedCellPoint + sphere.swarm.sailCount >= sphere.totalCellPoint)
+            if (Util.isSphereFilled(__instance.factory.dysonSphere))
             {
                 // Show text for disabled status
                 __instance.stateText.text = "Disabled - Filled Sphere";
