@@ -58,6 +58,25 @@ namespace SmartEjectors
                     __instance.direction = 0;
                 }
             }
+
+            [HarmonyPostfix, HarmonyPatch(typeof(UIEjectorWindow), "_OnUpdate")]
+            private static void UIEjectorWindow__OnUpdate_Postfix(ref UIEjectorWindow __instance)
+            {
+                if (!SmartEjectors.Config.enableLockEjector.inUse) return;
+
+                DysonSphere sphere = __instance.factory.dysonSphere;
+
+                // Check for filled sphere
+                if (sphere.totalConstructedCellPoint + sphere.swarm.sailCount >= sphere.totalCellPoint)
+                {
+                    // Show text for disabled status
+                    __instance.stateText.text = "Disabled - Filled Sphere";
+                    __instance.stateText.color = __instance.idleColor;
+                    __instance.valueText2.text = "Disabled";
+                    __instance.valueText2.color = __instance.idleColor;
+                    __instance.valueText3.color = __instance.factorySystem.ejectorPool[__instance.ejectorId].targetState == EjectorComponent.ETargetState.AngleLimit ? __instance.workStoppedColor : __instance.idleColor;
+                }
+            }
         }
     }
 }
