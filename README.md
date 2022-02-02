@@ -6,6 +6,10 @@ In the current state, Dyson Swarms are terribly inefficient. There is no in-game
 This mod stops EM Rail Ejectors from firing when the local Dyson Sphere has no available cell points.
 
 ## Changelog
+### v1.2.1
+- Readme file changes not committed in v1.2.0
+### v1.2.0
+- Added feature where placed EM Rail Ejectors select Orbit 1 by default (can be disabed in config, follows host settings in multiplayer)
 ### v1.1.3
 - Added zhCN language support
 ### v1.1.2
