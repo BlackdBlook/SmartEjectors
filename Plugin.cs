@@ -23,11 +23,13 @@ namespace SmartEjectors
         public void Export(BinaryWriter w)
         {
             w.Write(SmartEjectors.Config.enableLockEjector.local);
+            w.Write(SmartEjectors.Config.enableDefaultOrbit.local);
         }
 
         public void Import(BinaryReader r)
         {
             SmartEjectors.Config.enableLockEjector.inUse = r.ReadBoolean();
+            SmartEjectors.Config.enableDefaultOrbit.inUse = r.ReadBoolean();
         }
 
         private void Awake()
@@ -35,6 +37,7 @@ namespace SmartEjectors
             SmartEjectors.Config.Init(Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME + ".cfg"));
 
             harmony.PatchAll(typeof(Patch.LockEjectors));
+            harmony.PatchAll(typeof(Patch.DefaultOrbit));
         }
     }
 }
