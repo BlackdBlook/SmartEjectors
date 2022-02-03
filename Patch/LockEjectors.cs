@@ -7,7 +7,7 @@ namespace SmartEjectors.Patch
         [HarmonyPostfix, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
         private static void EjectorComponent_InternalUpdate_Postfix(ref EjectorComponent __instance, DysonSwarm swarm, ref AnimData[] animPool)
         {
-            if (!Config.enableLockEjector.inUse) return;
+            if (!Config.enableLockEjector.isActive()) return;
 
             if (Util.isSphereFilled(swarm.dysonSphere))
             {
@@ -25,7 +25,7 @@ namespace SmartEjectors.Patch
         [HarmonyPostfix, HarmonyPatch(typeof(UIEjectorWindow), "_OnUpdate")]
         private static void UIEjectorWindow__OnUpdate_Postfix(ref UIEjectorWindow __instance)
         {
-            if (!Config.enableLockEjector.inUse) return;
+            if (!Config.enableLockEjector.isActive()) return;
 
             if (Util.isSphereFilled(__instance.factory.dysonSphere))
             {

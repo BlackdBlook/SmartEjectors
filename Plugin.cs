@@ -22,14 +22,12 @@ namespace SmartEjectors
 
         public void Export(BinaryWriter w)
         {
-            w.Write(SmartEjectors.Config.enableLockEjector.local);
-            w.Write(SmartEjectors.Config.enableDefaultOrbit.local);
+            SmartEjectors.Config.Export(w);
         }
 
         public void Import(BinaryReader r)
         {
-            SmartEjectors.Config.enableLockEjector.inUse = r.ReadBoolean();
-            SmartEjectors.Config.enableDefaultOrbit.inUse = r.ReadBoolean();
+            SmartEjectors.Config.Import(r);
         }
 
         private void Awake()
