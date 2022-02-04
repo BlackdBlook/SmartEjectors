@@ -9,7 +9,7 @@ namespace SmartEjectors.Patch
         {
             if (!Config.enableLockEjector.isActive()) return;
 
-            if (Util.isSphereFilled(swarm.dysonSphere))
+            if (Util.IsSphereFilled(swarm.dysonSphere))
             {
                 // Disable firing
                 __instance.time = 0;
@@ -27,12 +27,12 @@ namespace SmartEjectors.Patch
         {
             if (!Config.enableLockEjector.isActive()) return;
 
-            if (Util.isSphereFilled(__instance.factory.dysonSphere))
+            if (Util.IsSphereFilled(__instance.factory.dysonSphere))
             {
                 // Show text for disabled status
                 __instance.stateText.text = Locale.disabledEjector1[Localization.language];
                 __instance.stateText.color = __instance.idleColor;
-                __instance.valueText2.text = Locale.disabledejector2[Localization.language];
+                __instance.valueText2.text = Locale.disabledEjector2[Localization.language];
                 __instance.valueText2.color = __instance.idleColor;
                 __instance.valueText3.color = __instance.factorySystem.ejectorPool[__instance.ejectorId].targetState == EjectorComponent.ETargetState.AngleLimit ? __instance.workStoppedColor : __instance.idleColor;
             }

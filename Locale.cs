@@ -3,7 +3,7 @@ namespace SmartEjectors
     public static class Locale
     {
         public static readonly LanguageText disabledEjector1 = new LanguageText("Disabled - Filled Sphere", "已禁用 - 戴森球已填满");
-        public static readonly LanguageText disabledejector2 = new LanguageText("Disabled", "已禁用");
+        public static readonly LanguageText disabledEjector2 = new LanguageText("Disabled", "已禁用");
     }
 
     public class LanguageText
