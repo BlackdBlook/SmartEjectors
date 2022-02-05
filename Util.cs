@@ -24,7 +24,7 @@ namespace SmartEjectors
                 {
                     if (nodePool[j] == null || nodePool[j].id != j) continue;
 
-                    if (nodePool[j].totalCp < nodePool[j].totalCpMax) avaliableNodeCount++;
+                    if (nodePool[j].totalSp > 30 && nodePool[j].totalCp < nodePool[j].totalCpMax) avaliableNodeCount++;
                 }
             }
 

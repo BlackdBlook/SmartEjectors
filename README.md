@@ -8,6 +8,8 @@ A Dyson Sphere Program mod that makes EM Rail Ejectors smarter.
 - Ejectors stop firing when local dyson swarm exceeds a certain size, proportional to the number of available nodes
 
 ## Changelog
+### v1.3.1
+- Fixed bug where nodes that are not constructed count towards available nodes
 ### v1.3.0
 - Added feature where EM Rail Ejectors stop firing depending on swarm size
 - Added features section in README
