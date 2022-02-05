@@ -7,7 +7,7 @@ namespace SmartEjectors.Patch
         [HarmonyPostfix, HarmonyPatch(typeof(PlanetFactory), "CreateEntityLogicComponents")]
         private static void PlanetFactory_CreateEntityLogicComponents_Postfix(PlanetFactory __instance, int entityId, PrefabDesc desc)
         {
-            if (!Config.enableDefaultOrbit.isActive()) return;
+            if (!Config.enableDefaultOrbit.ActiveValue()) return;
 
             if (desc.isEjector)
             {

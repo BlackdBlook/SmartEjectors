@@ -1,11 +1,16 @@
 # SmartEjectors
-A Dyson Sphere Program mod.
+A Dyson Sphere Program mod that makes EM Rail Ejectors smarter.
 
-In the current state, Dyson Swarms are terribly inefficient. There is no in-game option to have the EM Rail Ejectors fire only at the Dyson Sphere and stopping automatically when it's filled up.
-
-This mod stops EM Rail Ejectors from firing when the local Dyson Sphere has no available cell points.
+## Features
+- Independently configurable features
+- Ejectors select Orbit 1 by default
+- Ejectors stop firing when local dyson sphere is filled
+- Ejectors stop firing when local dyson swarm exceeds a certain size, proportional to the number of available nodes
 
 ## Changelog
+### v1.3.0
+- Added feature where EM Rail Ejectors stop firing depending on swarm size
+- Added features section in README
 ### v1.2.1
 - Readme file changes not committed in v1.2.0
 ### v1.2.0
@@ -21,5 +26,5 @@ This mod stops EM Rail Ejectors from firing when the local Dyson Sphere has no a
 ### v1.0.2 - v1.0.4
 - Code formatting, no functional change
 ### v1.0.1
-- Added process filter for game excecutable
+- Added process filter for game executable
 - Fixed bug where disabled ejectors draw full charging power
