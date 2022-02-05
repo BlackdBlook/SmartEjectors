@@ -18,7 +18,7 @@ readme = "./README.md"
 outdir = "./build"
 
 [[build.copy]]
-source = "./bin/Release/netstandard2.0/SmartEjectors.dll"
+source = "./bin/Release/net472/SmartEjectors.dll"
 target = "./SmartEjectors.dll"
 
 [publish]

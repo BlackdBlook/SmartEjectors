@@ -23,7 +23,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: bin/Release/netstandard2.0/SmartEjectors.dll
+          files: bin/Release/net472/SmartEjectors.dll
       - run: dotnet new tool-manifest
       - run: dotnet tool install tcli
       - name: Publish
