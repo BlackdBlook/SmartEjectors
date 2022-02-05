@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Logging;
 using HarmonyLib;
 using NebulaAPI;
 using System.IO;
@@ -12,6 +13,8 @@ namespace SmartEjectors
     {
         private const string GUID = "com.daniel-egg." + PluginInfo.PLUGIN_NAME;
         private Harmony harmony = new Harmony(GUID);
+
+        public static new ManualLogSource Logger;
 
         public string Version { get { return PluginInfo.PLUGIN_VERSION; } }
 
@@ -32,6 +35,8 @@ namespace SmartEjectors
 
         private void Awake()
         {
+            Plugin.Logger = base.Logger;
+
             SmartEjectors.Config.Init(Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME + ".cfg"));
 
             harmony.PatchAll(typeof(Patch.LockEjectors));
