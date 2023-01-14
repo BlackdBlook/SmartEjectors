@@ -7,6 +7,29 @@ namespace SmartEjectors.Patch
 {
     public static class LockEjectors
     {
+        public static Dictionary<int, bool[]> dysonSphereStates = new Dictionary<int, bool[]>();
+
+        [HarmonyPostfix, HarmonyPatch(typeof(DysonSphere), "GameTick")]
+        private static void DysonSphere_GameTick_Postfix(DysonSphere __instance)
+        {
+            if (dysonSphereStates.ContainsKey(__instance.starData.id))
+            {
+                dysonSphereStates[__instance.starData.id] = new bool[]
+                {
+                    Util.IsSphereFilled(__instance),
+                    Util.IsNodeLimitReached(__instance)
+                };
+            }
+            else
+            {
+                dysonSphereStates.Add(__instance.starData.id, new bool[]
+                {
+                    Util.IsSphereFilled(__instance),
+                    Util.IsNodeLimitReached(__instance)
+                });
+            }
+        }
+
         [HarmonyTranspiler, HarmonyPatch(typeof(EjectorComponent), "InternalUpdate")]
         private static IEnumerable<CodeInstruction> EjectorComponent_InternalUpdate_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
@@ -25,7 +48,7 @@ namespace SmartEjectors.Patch
                         new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(DysonSwarm), nameof(DysonSwarm.dysonSphere))),
                         Transpilers.EmitDelegate<Func<DysonSphere, bool>>((DysonSphere sphere) =>
                         {
-                            return !(Util.IsSphereFilled(sphere) || Util.IsNodeLimitReached(sphere));
+                            return !dysonSphereStates.ContainsKey(sphere.starData.id) || !(dysonSphereStates[sphere.starData.id][0] || dysonSphereStates[sphere.starData.id][1]);
                         }),
                         new CodeInstruction(OpCodes.Ldloc_3),
                         new CodeInstruction(OpCodes.And),
@@ -44,7 +67,12 @@ namespace SmartEjectors.Patch
         [HarmonyPostfix, HarmonyPatch(typeof(UIEjectorWindow), "_OnUpdate")]
         private static void UIEjectorWindow__OnUpdate_Postfix(ref UIEjectorWindow __instance)
         {
-            if (Util.IsSphereFilled(__instance.factory.dysonSphere))
+            if (!dysonSphereStates.ContainsKey(__instance.factory.dysonSphere.starData.id))
+            {
+                return;
+            }
+
+            if (dysonSphereStates[__instance.factory.dysonSphere.starData.id][0])
             {
                 // Show text for disabled status
                 __instance.stateText.text = Locale.disabledEjector1[Localization.language];
@@ -52,9 +80,11 @@ namespace SmartEjectors.Patch
                 __instance.valueText2.text = Locale.disabledEjector2[Localization.language];
                 __instance.valueText2.color = __instance.workStoppedColor;
                 __instance.valueText3.color = __instance.factorySystem.ejectorPool[__instance.ejectorId].targetState == EjectorComponent.ETargetState.AngleLimit ? __instance.workStoppedColor : __instance.idleColor;
+
+                return;
             }
 
-            else if (Util.IsNodeLimitReached(__instance.factory.dysonSphere))
+            if (dysonSphereStates[__instance.factory.dysonSphere.starData.id][1])
             {
                 // Show text for disabled status
                 __instance.stateText.text = Locale.disabledEjector3[Localization.language];
@@ -62,6 +92,8 @@ namespace SmartEjectors.Patch
                 __instance.valueText2.text = Locale.disabledEjector2[Localization.language];
                 __instance.valueText2.color = __instance.workStoppedColor;
                 __instance.valueText3.color = __instance.factorySystem.ejectorPool[__instance.ejectorId].targetState == EjectorComponent.ETargetState.AngleLimit ? __instance.workStoppedColor : __instance.idleColor;
+
+                return;
             }
         }
     }
